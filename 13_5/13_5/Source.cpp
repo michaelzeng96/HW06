@@ -23,7 +23,7 @@ int main()
 	ranking = lookupRank(cyear, cgender, cname);
 
 	if (ranking == 0)
-		cout << cname << " is not ranked in year " << cyear << endl;
+		cout <<"The name "<< cname << " is not ranked in year " << cyear << endl;
 	else
 		cout << cname << " is ranked #" << ranking << " in year " << cyear << endl;
 
@@ -79,9 +79,10 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 	}
 
 	//read the file line by line till end
-	while (getline(file, str))
+	while (getline(file, str) && !file.eof())
 	{
-		// Process the line of string
+		if (file.eof()) break;
+		
 		for (int i = 0; i < str.length(); i++)
 		{
 			if (gender == "M")
@@ -107,16 +108,6 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 					i++;
 				}
 
-				if (isalpha(str[i]))
-				{
-					i++;
-				}
-
-				if (!isalpha(str[i]))
-				{
-					i++;
-				}
-
 				string femaleName(&str[i]);
 
 				if (strncmp(name.c_str(), femaleName.c_str(), name.length()) == 0)
@@ -136,4 +127,5 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 			}
 		} 
 	} 
+	return ranking;
 }
