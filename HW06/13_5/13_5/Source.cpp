@@ -87,7 +87,7 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 		{
 			if (gender == "M")
 			{
-				if (!isalpha(str[i]))
+				while (str[i] == '\t' || !isalpha(str[i]))
 				{
 					i++;
 				}
@@ -97,13 +97,23 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 				{
 					strncpy(rank, str.c_str(), i);
 					ranking = stoi(rank);
-					file.close();
-					return ranking;
 				}
+
+				break;
 			}
 			else if (gender == "F")
 			{
-				if (!isalpha(str[i]))
+				while (str[i] == '\t' || !isalpha(str[i]))
+				{
+					i++;
+				}
+
+				while (str[i] == '\t' || isalpha(str[i]))
+				{
+					i++;
+				}
+
+				while (str[i] == '\t' || !isalpha(str[i]))
 				{
 					i++;
 				}
@@ -114,18 +124,17 @@ unsigned int lookupRank(unsigned year, string gender, string name)
 				{
 					strncpy(rank, str.c_str(), i);
 					ranking = stoi(rank);
-					file.close();
-					return ranking;
 				}
+				break;
 
 			}
 			else
 			{
 				cout << "Gender must be M or F" << endl;
-				file.close();
-				return ranking;
 			}
 		} 
-	} 
+	}
+
+	file.close();
 	return ranking;
 }
